@@ -10,7 +10,7 @@ Make sure you run these tests regularly and mark off whether they are passing - 
 
 | Test Case      | Data To Use | Expected Outcome | Passing? |
 | ----------- | ----------- | ----------- | ------------ |
-| Valid books file  | ./bin/library books.txt  | Program proceeds with no issues | [tick ] |
+| Valid books file  | ./bin/library books.txt  | Program proceeds with no issues | [ ] |
 | Books file does not exist  |  ./bin/library fake.txt  |  Program should exit and alert user | [ ] |
 | Books file has no read permissions | chmod -r books.txt <br> ./bin/library books.txt <br> chmod +r books.txt | Program should exit and alert user | [ ] |
 | No books file provided | ./bin/library  | Program should give usage message and exit | [ ] |
