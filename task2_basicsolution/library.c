@@ -30,14 +30,30 @@ void initLibrary(char *bookFile, Library *theLibrary)
   // TO DO :
 
   // dynamically allocate the bookList array for storing books
+  theLibrary->bookList = malloc(sizeof(Book) * theLibrary->maxBooks);
+    if(theLibrary->bookList == NULL) {
+        printf("Unable to allocate memory for book list.\n");
+        exit(EXIT_FAILURE);
+    }
+    theLibrary->numBooks = 0;
 
+  
   // open the book file
-
+    FILE* books = fopen(bookFile, "r");
+    if (books == NULL) {
+        printf("Cannot open book file: %s\n", bookFile);
+        free(theLibrary->bookList);
+        theLibrary->bookList = NULL;
+        exit(EXIT_FAILURE);
+    }
   // use the readBooks function to read in the file and add the book records into the bookList array
+    theLibrary->numBooks = readBooks(books, theLibrary->bookList);
 
   // remember to close the file
+    fclose(books);
 
   // Initialise the User data
+    theLibrary->theUser.numBorrowed = 0;
 
   return;
 }
@@ -58,12 +74,32 @@ int readBooks(FILE *books, Book *bookList)
 {
 
   // TO DO:
+  int i = 0;
+  while (!feof(books) && i < 100) 
+  {
+    char *pos;
 
-  // read from the book file pointer
+    if (fgets(bookList[i].author, 40, books) != NULL)
+    {
+      if ((pos=strchr(bookList[i].author, '\n')) != NULL)
+        *pos = '\0';
+    }
 
-  // assign values to a Book structure in the bookList array for each complete record
+    if (fgets(bookList[i].title, 40, books) != NULL)
+    {
+      if ((pos=strchr(bookList[i].title, '\n')) != NULL)
+        *pos = '\0';
+    }
+    
+    bookList[i].available = 1;
 
-  // read data until the file ends
+    // Increment book count
+    i++;
+
+    char skip[2];
+    fgets(skip, 2, books);
+  }
+  return i;  
 
   return 0;
 }
@@ -79,7 +115,8 @@ void exitLibrary(Library *theLibrary)
   // TO DO:
 
   // free the allocated lists
-
+  free(theLibrary->bookList);
+  
   return;
 }
 

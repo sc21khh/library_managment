@@ -25,9 +25,14 @@ Make sure you run these tests regularly and mark off whether they are passing - 
 
 ## Library
 
- | Test Case | Data To Use | Expected Outcome | Passing? |
- | -- | -- | -- | -- |
- |  |  |  | [ ] |
+| Test Case | Data To Use | Expected Outcome | Passing? |
+| -- | -- | -- | -- |
+| Empty book file | An empty text file | Program should handle gracefully and not crash | [] |
+| File contains more books than maximum | A text file containing more than 100 books | Program should only load the first 100 books and ignore the rest | [] |
+| User tries to borrow more books than allowed | User attempts to borrow 5 books | The 5th book should not be borrowed, and an error message should be displayed | [] |
+| User tries to borrow a book that is not available | User attempts to borrow a book that has already been borrowed | The book should not be borrowed, and an error message should be displayed | [] |
+| User tries to return a book they have not borrowed | User attempts to return a book that they have not borrowed | The book should not be returned, and an error message should be displayed | [] |
+| User tries to return a book they have borrowed | User attempts to return a book they have borrowed | The book should be returned successfully, and an appropriate message should be displayed | [] |
 
 ## User
 
