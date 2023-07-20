@@ -19,9 +19,10 @@ Make sure you run these tests regularly and mark off whether they are passing - 
 
 ## Librarian
 
- | Test Case | Data To Use | Expected Outcome | Passing? |
- | -- | -- | -- | -- |
- |  |  |  | [ ] |
+| Test Case | Data To Use | Expected Outcome | Passing? |
+| -- | -- | -- | -- |
+| Librarian lists all books | N/A | The function should list all books in the library | [] |
+| Librarian lists borrowed books | N/A | The function should list all borrowed books in the library | [] |
 
 ## Library
 
