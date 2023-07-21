@@ -25,8 +25,28 @@ void listAvailableBooks(Book *bookList, int numBooks)
   // TO DO :
 
   // print out available books with format "list number - author - title" on each line
-
+  int i;
+  for (i = 0; i < numBooks; i++)
+  {
+    if (bookList[i].available == 1)
+    {
+      printf("%d - %s - %s\n", i + 1, bookList[i].author, bookList[i].title);
+    }
+  }
   return;
+}
+
+/**
+ * @brief Clears the input buffer by reading and discarding any remaining characters in the buffer.
+ *
+ * This function is useful for clearing the input buffer after reading input from the user with functions like `scanf`.
+ * If there are any remaining characters in the input buffer, they will be read and discarded until a newline character
+ * or end-of-file (EOF) is encountered.
+ */
+void clearInputBuffer()
+{
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
 }
 
 /**
@@ -43,7 +63,27 @@ void borrowBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
   // TO DO :
   // request the choice of book
   // borrow the book, update the data structures
+  if (theUser->numBorrowed >= maxBorrowed)
+  {
+    printf("You have reached your limit of borrowed books.\n");
+    return;
+  }
 
+  int bookIndex;
+  printf("Enter the list number of the book you want to borrow: ");
+  scanf("%d", &bookIndex);
+  clearInputBuffer();
+  bookIndex--; // To adjust for zero-based index
+
+  if (bookIndex < 0 || bookIndex >= numBooks || bookList[bookIndex].available != 1)
+  {
+    printf("Invalid book selection.\n");
+    return;
+  }
+
+  bookList[bookIndex].available = 0;
+  theUser->borrowed[theUser->numBorrowed++] = &bookList[bookIndex];
+  printf("You've borrowed the book: %s by %s\n", bookList[bookIndex].title, bookList[bookIndex].author);
   return;
 }
 
@@ -60,7 +100,11 @@ void listMyBooks(User *theUser, Book *bookList, int maxBorrowed)
   // TO DO :
 
   // list books in format "number - author - title"
-
+  int i;
+  for (i = 0; i < theUser->numBorrowed; i++)
+  {
+    printf("%d - %s - %s\n", i + 1, theUser->borrowed[i]->author, theUser->borrowed[i]->title);
+  }
   return;
 }
 
@@ -76,10 +120,33 @@ void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
 {
 
   // TO DO :
-  // check that there are borrowed books
-  // request the choice of book
-  // return the book and update data structures
+  
 
+  // check that there are borrowed books
+  if (theUser->numBorrowed == 0)
+  {
+    printf("You haven't borrowed any books.\n");
+    return;
+  }
+
+  // request the choice of book
+  int bookIndex;
+  printf("Enter the list number of the book you want to return: ");
+  scanf("%d", &bookIndex);
+  clearInputBuffer();
+  bookIndex--; // To adjust for zero-based index
+
+  if (bookIndex < 0 || bookIndex >= theUser->numBorrowed)
+  {
+    printf("Invalid selection.\n");
+    return;
+  }
+
+  // return the book and update data structures
+  theUser->borrowed[bookIndex]->available = 1;
+  printf("You've returned the book: %s by %s\n", theUser->borrowed[bookIndex]->title, theUser->borrowed[bookIndex]->author);
+  theUser->borrowed[bookIndex] = theUser->borrowed[theUser->numBorrowed - 1];
+  theUser->numBorrowed--;
   return;
 }
 

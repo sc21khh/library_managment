@@ -37,9 +37,13 @@ Make sure you run these tests regularly and mark off whether they are passing - 
 
 ## User
 
- | Test Case | Data To Use | Expected Outcome | Passing? |
- | -- | -- | -- | -- |
- |  |  |  | [ ] |
+| Test Case | Data To Use | Expected Outcome | Passing? |
+| -- | -- | -- | -- |
+| User tries to borrow a book that is available | Book index of an available book | The book should be successfully borrowed, and the book's availability should be updated | [] |
+| User tries to borrow a book that is not available | Book index of an unavailable book | The book should not be borrowed, and an error message should be displayed | [] |
+| User tries to borrow a book while at the limit | Try to borrow a book when already at the limit | The book should not be borrowed, and an error message should be displayed | [] |
+| User tries to return a book they have not borrowed | Book index of a book not borrowed | The book should not be returned, and an error message should be displayed | [] |
+| User tries to return a book they have borrowed | Book index of a borrowed book | The book should be successfully returned, and the book's availability should be updated | [] |
 
 ## Anything Else
 
