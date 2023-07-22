@@ -25,8 +25,14 @@ int main(int argc, char **argv)
     char bookFile[40];
 
     // TO DO :
+    if (argc < 2)
+    {
+        printf("Please provide a book file name.\n");
+        return 1;
+    }
 
     // assign command line value to filename string
+    strncpy(bookFile, argv[1], sizeof(bookFile) - 1);
 
     // DO NOT ALTER
     // start the system
